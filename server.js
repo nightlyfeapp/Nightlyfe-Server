@@ -13,12 +13,12 @@ const authRoutes = require('./routes/api/authRoutes');
 
 require('dotenv').config();
 
-// const corsOptions = {
-//   origin: '*',
-//   methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
-//   allowHeaders: 'X-Requested-With, Content-Type, Accept, Authorization',
-//   optionsSuccessStatus: 204,
-// };
+const corsOptions = {
+  origin: '*',
+  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+  allowHeaders: 'X-Requested-With, Content-Type, Accept, Authorization',
+  optionsSuccessStatus: 204,
+};
 
 const server = express();
 
@@ -35,7 +35,7 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
-server.use(cors());
+server.use(cors(corsOptions));
 
 // server.use((req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', '*');
