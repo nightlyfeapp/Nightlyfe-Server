@@ -2,7 +2,7 @@
 // Dependencies
 const express = require('express');
 const mongoose = require('mongoose');
-// const cors = require('cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
@@ -28,6 +28,8 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
+server.use(cors());
+
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
@@ -39,6 +41,7 @@ server.use((req, res, next) => {
     req.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
     return res.status(200).json({});
   }
+  next();
 });
 
 server.use('/events', eventRoutes);
