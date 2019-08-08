@@ -13,6 +13,13 @@ const authRoutes = require('./routes/api/authRoutes');
 
 require('dotenv').config();
 
+const corsOptions = {
+  origin: '*',
+  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+  allowHeaders: 'X-Requested-With, Content-Type, Accept, Authorization',
+  optionsSuccessStatus: 204,
+};
+
 const server = express();
 
 // Middleware
@@ -28,21 +35,21 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
-server.use(cors());
+server.use(cors(corsOptions));
 
-server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin',
-    'X-Requested-With, Content-Type, Accept, Authorization',
-  );
-  if (req.method === 'OPTIONS') {
-    req.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-    return res.status(200).json({});
-  }
-  next();
-});
+// server.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin',
+//     'X-Requested-With, Content-Type, Accept, Authorization',
+//   );
+//   if (req.method === 'OPTIONS') {
+//     req.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+//     return res.status(200).json({});
+//   }
+//   next();
+// });
 
 server.use('/events', eventRoutes);
 server.use('/auth', authRoutes);
