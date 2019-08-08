@@ -35,7 +35,7 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
-server.use(cors(corsOptions));
+server.use(cors());
 
 // server.use((req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', '*');
