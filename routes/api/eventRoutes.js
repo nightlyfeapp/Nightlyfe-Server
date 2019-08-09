@@ -12,7 +12,7 @@ const {
 
 const checkAuth = require('../../middleware/auth/checkAuth');
 
-router.route('/new').post(checkAuth, newEvent);
+router.route('/new').post(newEvent);
 
 router
   .route('/:eventId')
